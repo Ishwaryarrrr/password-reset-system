@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: password-reset-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: password-reset
+  template:
+    metadata:
+      labels:
+        app: password-reset
+    spec:
+      containers:
+      - name: password-reset
+        image: yourdockerhubusername/password-reset:latest
+        ports:
+        - containerPort: 8080
