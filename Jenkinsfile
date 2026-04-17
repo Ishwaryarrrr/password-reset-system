@@ -4,7 +4,7 @@ pipeline {
     environment {
         // Matches your exact screenshot ID
         DOCKER_CREDS = credentials('docker-cred')
-        IMAGE_NAME = "Ishwarya21/password-reset"
+        IMAGE_NAME = "ishwarya21/password-reset"
     }
 
     tools {
