@@ -37,7 +37,7 @@ pipeline {
         stage('Push to Docker Hub') {
             steps {
                 // FIXED: Windows-compatible docker login and push
-                bat "docker login -u ${DOCKER_CREDS_USR} -p ${DOCKER_CREDS_PSW}"
+                bat 'docker login -u %DOCKER_CREDS_USR% -p %DOCKER_CREDS_PSW%'
                 bat "docker push ${IMAGE_NAME}:latest"
             }
         }
