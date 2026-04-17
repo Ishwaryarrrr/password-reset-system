@@ -17,4 +17,25 @@ public class PasswordResetService {
             return false;
         }
     }
+
+    // ADD THIS: This is the entry point for Docker/Kubernetes
+    public static void main(String[] args) {
+        System.out.println("========================================");
+        System.out.println("Password Reset Service is now RUNNING!");
+        System.out.println("Waiting for requests...");
+        System.out.println("========================================");
+
+        // This keeps the container alive so you can see it as "Running" in Kubernetes
+        try {
+            Object lock = new Object();
+            synchronized (lock) {
+                while (true) {
+                    lock.wait();
+                }
+            }
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            System.out.println("Service interrupted.");
+        }
+    }
 }
