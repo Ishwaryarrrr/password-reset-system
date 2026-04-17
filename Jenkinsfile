@@ -2,13 +2,11 @@ pipeline {
     agent any
 
     environment {
-        // Matches your exact screenshot ID
         DOCKER_CREDS = credentials('docker-cred')
         IMAGE_NAME = "ishwarya21/password-reset"
     }
 
     tools {
-        // Lowercase to match standard Jenkins configurations
         maven 'maven3' 
         jdk 'jdk17'
     }
@@ -22,22 +20,20 @@ pipeline {
 
         stage('Build and Test') {
             steps {
-                // FIXED: Changed 'sh' to 'bat' for Windows
                 bat 'mvn clean package'
             }
         }
 
+        // FIXED: We moved the login step here so Jenkins authenticates FIRST
         stage('Build Docker Image') {
             steps {
-                // FIXED: Changed 'sh' to 'bat' and used double quotes for variables
+                bat 'docker login -u %DOCKER_CREDS_USR% -p %DOCKER_CREDS_PSW%'
                 bat "docker build -t ${IMAGE_NAME}:latest ."
             }
         }
 
         stage('Push to Docker Hub') {
             steps {
-                // FIXED: Windows-compatible docker login and push
-                bat 'docker login -u %DOCKER_CREDS_USR% -p %DOCKER_CREDS_PSW%'
                 bat "docker push ${IMAGE_NAME}:latest"
             }
         }
