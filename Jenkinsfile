@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         // This links to the credentials you will set up in Jenkins
-        DOCKER_CREDS = credentials('dockerhub-credentials')
+        DOCKER_CREDS = credentials('dockerhub-cred')
         IMAGE_NAME = "Ishwarya21/password-reset"
     }
 
